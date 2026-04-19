@@ -1,0 +1,19 @@
+{
+  "webhooks": {
+    "6ad63a54-9fb7-443c-87b4-c06faad13276": {
+      "id": "6ad63a54-9fb7-443c-87b4-c06faad13276",
+      "url": "https://webhook.site/test",
+      "event_type": "market_signal",
+      "conditions": {
+        "asset": "BTC",
+        "signal": "buy",
+        "min_confidence": 0.8
+      },
+      "active": true,
+      "created_at": "2026-04-19T04:23:04.907Z",
+      "last_triggered": null,
+      "trigger_count": 0
+    }
+  },
+  "logs": {}
+}

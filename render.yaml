@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: market-webhook-api
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: node dist/index.js
+    healthCheckPath: /v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MARKET_SIGNAL_API_URL
+        value: https://market-signal-api-iu2o.onrender.com
+      - key: NEWS_IMPACT_API_URL
+        value: https://crypto-news-impact-api.onrender.com
+      - key: PORTFOLIO_REBALANCE_API_URL
+        value: https://portfolio-rebalance-api.onrender.com
