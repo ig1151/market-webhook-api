@@ -8,7 +8,8 @@ export async function deliverWebhook(
   webhookId: string,
   url: string,
   payload: WebhookPayload,
-  attempt = 1
+  attempt = 1,
+  secret?: string
 ): Promise<void> {
   let status: 'delivered' | 'failed' = 'failed';
   let statusCode: number | undefined;
@@ -16,7 +17,11 @@ export async function deliverWebhook(
   try {
     const response = await axios.post(url, payload, {
       timeout: 10000,
-      headers: { 'Content-Type': 'application/json', 'X-Webhook-Event': payload.event }
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Webhook-Event': payload.event,
+        ...(secret ? { 'X-Webhook-Secret': secret } : {})
+      }
     });
     statusCode = response.status;
     status = 'delivered';
@@ -27,7 +32,7 @@ export async function deliverWebhook(
     logger.warn({ webhookId, url, attempt, error: err.message }, 'Webhook delivery failed');
     if (attempt < 3) {
       const delay = attempt * 2000;
-      setTimeout(() => deliverWebhook(webhookId, url, payload, attempt + 1), delay);
+      setTimeout(() => deliverWebhook(webhookId, url, payload, attempt + 1, secret), delay);
     }
   }
 

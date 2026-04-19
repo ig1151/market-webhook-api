@@ -13,6 +13,7 @@ export interface WebhookConditions {
 export interface Webhook {
   id: string;
   url: string;
+  secret?: string;
   event_type: EventType;
   conditions: WebhookConditions;
   active: boolean;

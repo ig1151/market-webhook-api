@@ -7,6 +7,7 @@ const router = Router();
 
 const createSchema = Joi.object({
   url: Joi.string().uri().required(),
+  secret: Joi.string().max(200).optional(),
   event_type: Joi.string().valid('news_impact', 'market_signal', 'rebalance_trigger', 'decision_triggered').required(),
   conditions: Joi.object({
     asset: Joi.string().min(1).max(20).uppercase().required(),
@@ -36,6 +37,7 @@ router.post('/', (req: Request, res: Response): void => {
   const webhook = {
     id,
     url: value.url,
+    secret: value.secret ?? null,
     event_type: value.event_type,
     conditions: value.conditions,
     active: true,
