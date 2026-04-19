@@ -1,4 +1,4 @@
-export type EventType = 'news_impact' | 'market_signal' | 'rebalance_trigger';
+export type EventType = 'news_impact' | 'market_signal' | 'rebalance_trigger' | 'decision_triggered';
 
 export interface WebhookConditions {
   asset: string;
