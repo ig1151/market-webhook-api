@@ -7,7 +7,7 @@ const router = Router();
 
 const createSchema = Joi.object({
   url: Joi.string().uri().required(),
-  event_type: Joi.string().valid('news_impact', 'market_signal', 'rebalance_trigger').required(),
+  event_type: Joi.string().valid('news_impact', 'market_signal', 'rebalance_trigger', 'decision_triggered').required(),
   conditions: Joi.object({
     asset: Joi.string().min(1).max(20).uppercase().required(),
     min_impact_score: Joi.number().min(0).max(100).optional(),
@@ -18,7 +18,9 @@ const createSchema = Joi.object({
     min_rebalance_score: Joi.number().min(0).max(100).optional(),
     portfolio: Joi.array().optional(),
     strategy: Joi.string().optional(),
-    risk_tolerance: Joi.string().optional()
+    risk_tolerance: Joi.string().optional(),
+    decision: Joi.string().optional(),
+    min_decision_confidence: Joi.number().min(0).max(1).optional()
   }).required()
 });
 
